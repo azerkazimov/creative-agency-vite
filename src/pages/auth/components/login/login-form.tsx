@@ -1,19 +1,23 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import "./login-form.css";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import type { LoginUser } from "@/types/auth-user/auth-user";
 
 export default function LoginForm() {
   const navigate = useNavigate();
   // ===== Controlled Componnent =====
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("email: ", email, "password: ", password);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<LoginUser>();
 
+  const onSubmit = (data: LoginUser) => {
     const storredData = localStorage.getItem("userData");
 
     if (!storredData) {
@@ -26,7 +30,7 @@ export default function LoginForm() {
 
     const userData = JSON.parse(storredData);
 
-    if (userData.email === email && userData.password === password) {
+    if (userData.email === data.email && userData.password === data.password) {
       const loginData = {
         isLoggedIn: true,
         name: userData.name,
@@ -38,8 +42,7 @@ export default function LoginForm() {
 
       setSuccessMessage("Ugurla daxil oldunuz! Ana sehifeye kecid...");
       setError("");
-      setEmail("");
-      setPassword("");
+      reset();
 
       setTimeout(() => {
         navigate("/dashboard");
@@ -52,7 +55,7 @@ export default function LoginForm() {
 
   return (
     <div className="login-form">
-      <form onSubmit={handleSubmit} className="form-container">
+      <form onSubmit={handleSubmit(onSubmit)} className="form-container">
         {error && <div className="form-error-message">{error}</div>}
         {successMessage && (
           <div className="form-success-message">{successMessage}</div>
@@ -60,19 +63,33 @@ export default function LoginForm() {
         <input
           type="email"
           className="form-control"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           placeholder="Emailinizi daxil edin"
           required
+          {...register("email", {
+            required: "Email mutleqdir",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Email duzgun deir",
+            },
+          })}
         />
+        {errors.email && <span className="error">{errors.email.message}</span>}
         <input
           type="password"
           className="form-control"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           placeholder="********"
           required
+          {...register("password", {
+            required: "Sifre mutleqdir",
+            minLength: {
+              value: 6,
+              message: "Sifre min 6 simvoldan ibaret olmalidir",
+            },
+          })}
         />
+        {errors.password && (
+          <span className="error">{errors.password.message}</span>
+        )}
         <button type="submit" className="btn btn-white">
           Submit
         </button>

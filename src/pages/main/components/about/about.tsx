@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 
 export default function AboutSection() {
+  
   return (
     <section className="about-section">
       <div className="container">

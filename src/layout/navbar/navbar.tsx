@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import "./navbar.css";
 import type { AuthUser } from "@/types/auth-user/auth-user";
 import ButtonCollection from "@/components/button-collection/button-collection";
+import { ShoppingCart } from "lucide-react";
+import { useSidebar } from "@/store/useSidebar";
+import Sidebar from "@/components/sidebar/sidebar";
 
 interface NavbarProps {
   isAutentificated: boolean;
@@ -9,9 +12,15 @@ interface NavbarProps {
   onLogout: () => void;
 }
 
-export default function Navbar({ isAutentificated, user, onLogout }: NavbarProps) {
+export default function Navbar({
+  isAutentificated,
+  user,
+  onLogout,
+}: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+
+  const { isSidebarOpen, openSidebar } = useSidebar();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,21 +60,29 @@ export default function Navbar({ isAutentificated, user, onLogout }: NavbarProps
               </li>
             </ul>
           </nav>
+
+          {isSidebarOpen && <Sidebar />}
+
           <ButtonCollection>
             {isAutentificated ? (
-              <div className="avatar-container">
-                <div className="avatar" onClick={toggleDropdown}></div>
-                <span className="avatar-user-name">
-                  {user?.name ? user.name.charAt(0).toUpperCase() : ""}
-                </span>
-                {dropdown && (
-                  <div className="dropdown-menu">
-                    <button className="dropdown-item" onClick={onLogout}>
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
+              <>
+                <div className="shopping" onClick={openSidebar}>
+                  <ShoppingCart />
+                </div>
+                <div className="avatar-container">
+                  <div className="avatar" onClick={toggleDropdown}></div>
+                  <span className="avatar-user-name">
+                    {user?.name ? user.name.charAt(0).toUpperCase() : ""}
+                  </span>
+                  {dropdown && (
+                    <div className="dropdown-menu">
+                      <button className="dropdown-item" onClick={onLogout}>
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </>
             ) : (
               <>
                 <div className="auth-btn">

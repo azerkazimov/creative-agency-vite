@@ -1,6 +1,7 @@
 import { Star } from "lucide-react";
 import "./hero.css";
 import Button from "@/components/ui/button/button";
+
 export default function Hero() {
   return (
     <section className="hero-section">
@@ -13,6 +14,7 @@ export default function Hero() {
             when you need us for improve your business, <br /> then come with us
             to help your business have reach it, you just sit and feel that goal
           </p>
+          
           <Button className="btn btn-white">Start Project</Button>
           <div className="image-container">
             <div className="rayting">
