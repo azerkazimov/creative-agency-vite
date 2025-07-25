@@ -1,0 +1,22 @@
+.services-section{
+    margin: 130px 0;
+}
+
+.service-description{
+    display: flex;
+    align-items: center;
+    max-width: 521px;
+    height: 100%;
+}
+
+.services-cards{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.services-list{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}

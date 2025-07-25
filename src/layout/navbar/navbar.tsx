@@ -1,10 +1,11 @@
+import ButtonCollection from "@/components/button-collection/button-collection";
+import Sidebar from "@/components/sidebar/sidebar";
+import { useProducts } from "@/store/useProducts";
+import { useSidebar } from "@/store/useSidebar";
+import type { AuthUser } from "@/types/auth-user/auth-user";
+import { ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./navbar.css";
-import type { AuthUser } from "@/types/auth-user/auth-user";
-import ButtonCollection from "@/components/button-collection/button-collection";
-import { ShoppingCart } from "lucide-react";
-import { useSidebar } from "@/store/useSidebar";
-import Sidebar from "@/components/sidebar/sidebar";
 
 interface NavbarProps {
   isAutentificated: boolean;
@@ -21,6 +22,7 @@ export default function Navbar({
   const [dropdown, setDropdown] = useState(false);
 
   const { isSidebarOpen, openSidebar } = useSidebar();
+  const { products } = useProducts();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,13 +63,18 @@ export default function Navbar({
             </ul>
           </nav>
 
-          {isSidebarOpen && <Sidebar />}
+          <Sidebar />
 
           <ButtonCollection>
             {isAutentificated ? (
               <>
                 <div className="shopping" onClick={openSidebar}>
                   <ShoppingCart />
+                  {products.length > 0 ? (
+                    <span className="product-count">{products.length}</span>
+                  ) : (
+                    <></>
+                  )}
                 </div>
                 <div className="avatar-container">
                   <div className="avatar" onClick={toggleDropdown}></div>

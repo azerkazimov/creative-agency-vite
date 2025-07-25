@@ -57,7 +57,7 @@
     cursor: pointer;
 }
 
-.avatar-user-name{
+.avatar-user-name {
     position: absolute;
     font-size: 22px;
     top: 50%;
@@ -125,4 +125,24 @@
     border-bottom: none;
     border-right: none;
     transform: rotate(45deg);
+}
+
+.shopping {
+    position: relative;
+}
+
+.product-count {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    color: #333;
+    width: 15px;
+    height: 15px;
+    font-size: 12px;
+    display: flex;
+    top: -10px;
+    right: -12px;
+    align-items: center;
+    justify-content: center;
+
 }
