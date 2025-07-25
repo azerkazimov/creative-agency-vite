@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import "./section-header.css";
 
 interface SectionHeaderProps {
-  highlight: string;
+  highlight?: string;
   content: string;
   position: CSSProperties["textAlign"];
   description?: string

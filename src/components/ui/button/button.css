@@ -35,6 +35,12 @@
   border: 1px solid #e2e2e2;
   background: transparent;
   color: #e2e2e2;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-transparent:hover{
+  background-color: #e2e2e2;
+  color: #0e0e0e;
 }
 
 .btn-sidebar{

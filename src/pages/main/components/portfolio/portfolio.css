@@ -1,0 +1,9 @@
+.portfolio-section {
+    margin-bottom: 140px;
+}
+
+.portfolio-section-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

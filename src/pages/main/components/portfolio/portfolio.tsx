@@ -1,5 +1,8 @@
 import SectionHeader from "@/components/section-header/section-header";
 import Slider from "@/components/slider/slider";
+import Button from "@/components/ui/button/button";
+import { Link } from "react-router-dom";
+import "./portfolio.css";
 
 export default function Portfolio() {
   return (
@@ -11,7 +14,12 @@ export default function Portfolio() {
           position="center"
           description="all projects that we have already done , proven can help to use more comfortable, then can used by client from our business"
         />
-        <Slider/>
+        <Slider />
+        <div className="portfolio-section-footer">
+          <Link to="/project">
+            <Button className="btn-transparent">See All Portfolio</Button>
+          </Link>
+        </div>
       </div>
     </section>
   );
